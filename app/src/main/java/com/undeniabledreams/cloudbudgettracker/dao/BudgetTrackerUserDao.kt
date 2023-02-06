@@ -91,13 +91,13 @@ class BudgetTrackerUserDao(context: Context) {
             val phpLoginFile = properties.getProperty("login_php_file")
             val loginUrl = "$serverUrl$phpLoginFile"
             Log.d("login_url", loginUrl)
-            val stringRequest = object : StringRequest(Method.GET, loginUrl,
+            val stringRequest = object : StringRequest(Method.POST, loginUrl,
                 Response.Listener { response ->
                     if (!response.isEmpty()) {
                         try {
                             val jsonObject = JSONObject(response)
-                            val success = jsonObject.getString("success")
-                            if (success == "1") {
+                            val success = jsonObject.getInt("success")
+                            if (success == 1) {
                                 result = 1
                             }
                         } catch (e: JSONException) {

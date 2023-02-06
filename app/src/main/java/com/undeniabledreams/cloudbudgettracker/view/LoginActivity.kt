@@ -44,6 +44,8 @@ class LoginActivity : AppCompatActivity() {
                 val result: Int = budgetTrackerUserDao.logIn(budgetTrackerUserDto)
                 if (result == 1) {
                     Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
                 } else {
                     Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
                 }

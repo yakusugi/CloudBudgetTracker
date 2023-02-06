@@ -41,17 +41,19 @@ class LoginActivity : AppCompatActivity() {
             val budgetTrackerUserDao = BudgetTrackerUserDao(this)
 
             try {
-                val result: Int = budgetTrackerUserDao.logIn(budgetTrackerUserDto)
-                if (result == 1) {
-                    Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                } else {
-                    Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
+                budgetTrackerUserDao.logIn(budgetTrackerUserDto) { result ->
+                    if (result == 1) {
+                        Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                    } else {
+                        Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT).show()
+                    }
                 }
             } catch (e: IOException) {
                 Toast.makeText(this@LoginActivity, "Error in logging in!", Toast.LENGTH_SHORT).show()
                 e.printStackTrace()
+
             }
         }
 

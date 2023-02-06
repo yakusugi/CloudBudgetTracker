@@ -81,7 +81,7 @@ class BudgetTrackerUserDao(context: Context) {
         return 0
     }
 
-    fun logIn(budgetTrackerUserDto: BudgetTrackerUserDto): Int {
+    fun logIn(budgetTrackerUserDto: BudgetTrackerUserDto, callback: (result: Int) -> Unit) {
         var result = 0
         try {
             val properties = Properties()
@@ -104,12 +104,14 @@ class BudgetTrackerUserDao(context: Context) {
                             Log.e("JSONException", e.toString())
                         }
                     }
+                    callback(result)
                 },
                 Response.ErrorListener { error ->
                     if (context != null) {
                         Toast.makeText(context, "Unable to send data $error", Toast.LENGTH_SHORT).show()
                     }
                     Log.e("VolleyError", error.toString())
+                    callback(result)
                 }) {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
@@ -124,7 +126,6 @@ class BudgetTrackerUserDao(context: Context) {
         } catch (e: IOException) {
             e.printStackTrace()
         }
-        return result
     }
 
 }

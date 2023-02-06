@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
             val budgetTrackerUserDao = BudgetTrackerUserDao(this)
 
             try {
-                val result: Int = budgetTrackerUserDao.insertIntoLoginTbl(budgetTrackerUserDto)
+                val result: Int = budgetTrackerUserDao.logIn(budgetTrackerUserDto)
                 if (result == 1) {
                     Toast.makeText(this@LoginActivity, "Login successful!", Toast.LENGTH_SHORT).show()
                 } else {

@@ -104,6 +104,7 @@ class BudgetTrackerUserDao(context: Context) {
                             Log.e("JSONException", e.toString())
                         }
                     }
+                    Log.e("response", response)
                     callback(result)
                 },
                 Response.ErrorListener { error ->

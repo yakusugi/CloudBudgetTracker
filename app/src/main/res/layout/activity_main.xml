@@ -11,12 +11,55 @@
         android:id="@+id/frame_layout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        app:layout_constraintBaseline_toTopOf="@id/bottom_nav_view"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
     </FrameLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:focusable="true"
+        android:tint="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/add"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/store_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/add_btn"
+        app:layout_constraintEnd_toEndOf="@+id/add_btn"
+        app:srcCompat="@drawable/store"
+        android:tint="@android:color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/product_type_btn"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:tint="@android:color/white"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/store_btn"
+        app:layout_constraintEnd_toEndOf="@+id/store_btn"
+        app:srcCompat="@drawable/gadget"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_nav_view"

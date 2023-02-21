@@ -19,14 +19,14 @@ import kotlin.collections.HashMap
 class BudgetTrackerExpenseInsertDao(context: Context) {
     private val context: Context = context.applicationContext
 
-    fun insertIntoProductType(productTypeDto: ProductTypeDto, storeDto: StoreDto, budgetTrackerMasterDto: BudgetTrackerMasterDto): Int {
+    fun insertIntoMaster(productTypeDto: ProductTypeDto, storeDto: StoreDto, budgetTrackerMasterDto: BudgetTrackerMasterDto): Int {
 
         try {
             val properties = Properties()
             val inputStream = context.assets.open("server_config.properties")
             properties.load(inputStream)
             val serverUrl = properties.getProperty("server_url")
-            val phpInsertFile = properties.getProperty("insert_product_type_file")
+            val phpInsertFile = properties.getProperty("insert_budget_tracker_expense_file")
             val insertUrl = "$serverUrl$phpInsertFile"
 
             val stringRequest = object : StringRequest(

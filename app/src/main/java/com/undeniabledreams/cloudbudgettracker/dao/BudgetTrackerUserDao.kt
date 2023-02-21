@@ -65,6 +65,7 @@ class BudgetTrackerUserDao(context: Context) {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
+                    params["email"] = budgetTrackerUserDto.getEmail()
                     params["user_name"] = budgetTrackerUserDto.getId()
                     params["password"] = budgetTrackerUserDto.getPassword()
 
@@ -117,7 +118,7 @@ class BudgetTrackerUserDao(context: Context) {
                 @Throws(AuthFailureError::class)
                 override fun getParams(): Map<String, String> {
                     val params = HashMap<String, String>()
-                    params["user_name"] = budgetTrackerUserDto.getId()
+                    params["email"] = budgetTrackerUserDto.getEmail()
                     params["password"] = budgetTrackerUserDto.getPassword()
                     return params
                 }

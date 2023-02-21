@@ -1,5 +1,6 @@
 package com.undeniabledreams.cloudbudgettracker.view
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,13 +15,12 @@ import java.io.IOException
 
 class LoginActivity : AppCompatActivity() {
 
-
-
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val id: EditText = findViewById(R.id.edit_user_id)
+        val email: EditText = findViewById(R.id.edit_email_id)
         val pass: EditText = findViewById(R.id.edit_user_pass)
         val signInBtn: Button = findViewById(R.id.sign_in_btn)
         val signUpText: TextView = findViewById(R.id.sign_in_text)
@@ -32,10 +32,10 @@ class LoginActivity : AppCompatActivity() {
 
 
         signInBtn.setOnClickListener {
-            val userId: String = id.getText().toString()
+            val emailAddress: String = email.getText().toString()
             val userPassword: String = pass.getText().toString()
             val budgetTrackerUserDto = BudgetTrackerUserDto()
-            budgetTrackerUserDto.setId(userId)
+            budgetTrackerUserDto.setEmail(emailAddress)
             budgetTrackerUserDto.setPassword(userPassword)
 
             val budgetTrackerUserDao = BudgetTrackerUserDao(this)

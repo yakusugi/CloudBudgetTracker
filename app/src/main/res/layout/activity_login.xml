@@ -33,17 +33,17 @@
             android:layout_marginTop="20dp"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_person_24"
+            app:startIconDrawable="@drawable/ic_email_24"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             >
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_user_id"
+                android:id="@+id/edit_email_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
-                android:hint="User name"
-                android:inputType="text"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/black"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@null" />

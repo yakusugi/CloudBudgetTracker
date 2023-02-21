@@ -36,7 +36,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/store_btn"
+        android:id="@+id/budget_add_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -44,6 +44,19 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/add_btn"
         app:layout_constraintEnd_toEndOf="@+id/add_btn"
+        app:srcCompat="@drawable/budget"
+        android:tint="@android:color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/store_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/budget_add_btn"
+        app:layout_constraintEnd_toEndOf="@+id/budget_add_btn"
         app:srcCompat="@drawable/store"
         android:tint="@android:color/white"
         tools:ignore="SpeakableTextPresentCheck" />

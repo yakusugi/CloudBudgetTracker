@@ -33,6 +33,9 @@ class BudgetTrackerMasterDto {
         this.userName = userName
     }
 
+    constructor()
+
+
     fun getDate(): Date? {
         return date
     }

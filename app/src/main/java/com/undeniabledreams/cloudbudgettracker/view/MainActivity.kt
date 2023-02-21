@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
 
     private var clicked = false
     private lateinit var addBtn: FloatingActionButton
+    private lateinit var budgetBtn: FloatingActionButton
     private lateinit var storeBtn: FloatingActionButton
     private lateinit var productBtn: FloatingActionButton
 
@@ -49,11 +50,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         addBtn = findViewById(R.id.add_btn)
+        budgetBtn = findViewById(R.id.budget_add_btn)
         storeBtn = findViewById(R.id.store_btn)
         productBtn = findViewById(R.id.product_type_btn)
 
         addBtn.setOnClickListener {
             onAddBtnClicked()
+        }
+
+        budgetBtn.setOnClickListener {
+            Toast.makeText(this, "Budget Clicked", Toast.LENGTH_SHORT).show()
+
+            val fragment = ExpenseAddFragment() // create an instance of the new fragment
+            val fragmentManager = supportFragmentManager // get the fragment manager
+            val fragmentTransaction = fragmentManager.beginTransaction() // start a new transaction
+            fragmentTransaction.replace(R.id.frame_layout, fragment) // replace the current fragment with the new fragment
+            fragmentTransaction.addToBackStack(null) // add the current fragment to the back stack
+            fragmentTransaction.commit() // commit the transaction
         }
 
         storeBtn.setOnClickListener {
@@ -81,10 +94,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setAnimation(clicked: Boolean) {
         if (!clicked) {
+            budgetBtn.startAnimation(fromBottom)
             storeBtn.startAnimation(fromBottom)
             productBtn.startAnimation(fromBottom)
             addBtn.startAnimation(rotateOpen)
         } else {
+            budgetBtn.startAnimation(toBottom)
             storeBtn.startAnimation(toBottom)
             productBtn.startAnimation(toBottom)
             addBtn.startAnimation(rotateClose)
@@ -93,9 +108,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun setVisibility(clicked: Boolean) {
         if (!clicked) {
+            budgetBtn.visibility = View.VISIBLE
             storeBtn.visibility = View.VISIBLE
             productBtn.visibility = View.VISIBLE
         } else {
+            budgetBtn.visibility = View.INVISIBLE
             storeBtn.visibility = View.INVISIBLE
             productBtn.visibility = View.INVISIBLE
         }

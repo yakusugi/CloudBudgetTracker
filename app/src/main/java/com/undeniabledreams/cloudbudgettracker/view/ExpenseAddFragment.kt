@@ -1,18 +1,20 @@
 package com.undeniabledreams.cloudbudgettracker.view
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.widget.*
 import com.undeniabledreams.cloudbudgettracker.R
-import com.undeniabledreams.cloudbudgettracker.core.BudgetTrackerMasterDto
-import com.undeniabledreams.cloudbudgettracker.core.ProductTypeDto
-import com.undeniabledreams.cloudbudgettracker.core.StoreDto
+import com.undeniabledreams.cloudbudgettracker.core.*
 import com.undeniabledreams.cloudbudgettracker.dao.BudgetTrackerExpenseInsertDao
+import com.undeniabledreams.cloudbudgettracker.dao.BudgetTrackerExpenseSelectDao
+import com.undeniabledreams.cloudbudgettracker.dao.BudgetTrackerUserDao
 import java.io.IOException
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -59,9 +61,11 @@ class ExpenseAddFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_expense_add, container, false)
     }
 
+    @SuppressLint("CutPasteId")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dateEd = view.findViewById(R.id.edit_expense_date_id)
+        val context: Context? = context?.applicationContext
 
         val myCalender = Calendar.getInstance()
 //        val datePicker = DatePickerDialog.OnDateSetListener {
@@ -73,18 +77,20 @@ class ExpenseAddFragment : Fragment() {
 //        }
 
         dateEd.setOnClickListener {
-            val datePicker = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
-                // Set the selected date to the EditText
-                val selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
-                dateEd.setText(selectedDate)
-            }
+            val datePicker =
+                DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+                    // Set the selected date to the EditText
+                    val selectedDate = "$dayOfMonth/${monthOfYear + 1}/$year"
+                    dateEd.setText(selectedDate)
+                }
 
             val myCalendar = Calendar.getInstance()
             val year = myCalendar.get(Calendar.YEAR)
             val month = myCalendar.get(Calendar.MONTH)
             val dayOfMonth = myCalendar.get(Calendar.DAY_OF_MONTH)
 
-            val datePickerDialog = DatePickerDialog(requireContext(), datePicker, year, month, dayOfMonth)
+            val datePickerDialog =
+                DatePickerDialog(requireContext(), datePicker, year, month, dayOfMonth)
             datePickerDialog.show()
         }
 
@@ -95,49 +101,41 @@ class ExpenseAddFragment : Fragment() {
         productTypeEd = view.findViewById(R.id.edit_expense_product_type_id)
         priceEd = view.findViewById(R.id.edit_expense_price_id)
         vatEd = view.findViewById(R.id.edit_expense_vat_id)
-        currencyEd = view.findViewById(R.id.edit_expense_currency_id)
-        budgetAddButton = view.findViewById(R.id.budget_add_btn)
+        currencyEd = view.findViewById(R.id.auto_currency_complete_view)
+        val budgetTrackerExpenseSelectDao = context?.let { BudgetTrackerExpenseSelectDao(it) }
+        val currencyDto = CurrencyDto()
 
-        budgetAddButton.setOnClickListener {
+        currencyEd.setOnClickListener {
+            if (budgetTrackerExpenseSelectDao != null) {
+                val currencies: List<CurrencyDto> =
+                    budgetTrackerExpenseSelectDao.selectFromCurrency(currencyDto)
 
-            val dateString: String = dateEd.text.toString()
-            val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-            val date: Date = dateFormat.parse(dateString)
-            val store: String = storeEd.text.toString()
-            val productName: String = productNameEd.text.toString()
-            val productType: String = productTypeEd.text.toString()
-            val priceString: String = priceEd.text.toString()
-            val price: Double = priceString.toDouble()
-            val vatString: String = vatEd.text.toString()
-            val vat: Double = vatString.toDouble()
-            val currencyString: String = currencyEd.text.toString()
-            val currency: Int = currencyString.toInt()
-            val budgetTrackerMasterDto = BudgetTrackerMasterDto()
-            val storeDto = StoreDto()
-            val productTypeDto = ProductTypeDto()
-            budgetTrackerMasterDto.setDate(date)
-            storeDto.setStoreName(store)
-            budgetTrackerMasterDto.setProductName(productName)
-            productTypeDto.setProductTypeName(productType)
-            budgetTrackerMasterDto.setPrice(price)
-            budgetTrackerMasterDto.setVat(vat)
-            budgetTrackerMasterDto.setCurrencyId(currency)
 
-            try {
-                context?.let { BudgetTrackerExpenseInsertDao(it) }
-                    ?.insertIntoMaster(productTypeDto, storeDto, budgetTrackerMasterDto)
-            } catch (e: IOException) {
-                e.printStackTrace()
+                // Create a list to hold the data retrieved from the database
+                val currencyList = mutableListOf<String>()
+
+                // Iterate through the result set and add each expense to the list
+                for (currency in currencies) {
+                    val currencyName = currency.getCurrency()
+                    val currencyNameAbbr = currency.getCurrencyAbbr()
+
+                    // Concatenate the expense details into a string and add it to the list
+                    val currencyString = "$currencyName: $currencyNameAbbr"
+                    currencyList.add(currencyString)
+
+                    val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, currencyList)
+
+                    // Get a reference to the AutoCompleteTextView in the layout
+                    val autoCurrencyCompleteView = view.findViewById<AutoCompleteTextView>(R.id.auto_currency_complete_view)
+
+                    // Set the adapter for the AutoCompleteTextView
+                    autoCurrencyCompleteView.setAdapter(adapter)
+                }
             }
         }
 
     }
 
-//    private fun updateLabel(myCalendar: Calendar) {
-//        val myFormat = "dd-MM-yyyy"
-//        val sdf = SimpleDateFormat(myFormat, Locale.US)
-//        dateEd.setText(sdf.format(myCalendar.time))
-//    }
 
     companion object {
         /**

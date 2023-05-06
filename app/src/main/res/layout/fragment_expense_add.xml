@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.ExpenseAddFragment"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    tools:context=".view.ExpenseAddFragment">
 
     <RelativeLayout
         android:id="@+id/add_spending_banner"
-        android:layout_marginTop="32dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="32dp"
         android:layout_marginRight="20dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/title_spending"
-            android:text="Expense"
-            android:textSize="22sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Expense"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/sub_title_spending"
-            android:layout_marginTop="6dp"
-            android:layout_below="@+id/title_spending"
-            android:text="Your money, your life"
-            android:textSize="14sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title_spending"
+            android:layout_marginTop="6dp"
+            android:text="Your money, your life"
+            android:textSize="14sp" />
 
         <ImageView
-            android:layout_alignParentRight="true"
-            android:src="@drawable/shopping_bag"
             android:layout_width="62dp"
-            android:layout_height="62dp"/>
+            android:layout_height="62dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/shopping_bag" />
 
     </RelativeLayout>
 
@@ -46,67 +45,91 @@
         android:layout_height="match_parent"
         android:layout_marginTop="110dp"
         android:background="@drawable/add_shape"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/add_spending_banner">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:boxStrokeColor="@color/black"
-        app:hintTextColor="@color/black"
-        app:startIconDrawable="@drawable/ic_calendar_month_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintTop_toBottomOf="@+id/add_spending_banner">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_expense_date_id"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:hint="Date"
-            android:inputType="date"
-            android:textColor="@color/black"
-            android:textColorHint="@color/white"
-            android:textCursorDrawable="@null" />
-    </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        app:boxStrokeColor="@color/black"
-        app:hintTextColor="@color/black"
-        app:startIconDrawable="@drawable/ic_storefront_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
-        tools:ignore="MissingConstraints,NotSibling">
+            android:hint="Currency"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/ic_dollar_24"
+            tools:ignore="MissingConstraints">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_expense_store_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/black"
-            android:hint="Store"
-            android:inputType="text"
-            android:textColor="@color/black"
-            android:textColorHint="@color/white"
-            android:textCursorDrawable="@null" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <AutoCompleteTextView
+                android:id="@+id/auto_currency_complete_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="none"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:text="Currency"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/add_spending_banner"
+            app:startIconDrawable="@drawable/ic_calendar_month_24"
+            tools:ignore="MissingConstraints">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_expense_date_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:hint="Date"
+                android:inputType="date"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_product_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
+            app:startIconDrawable="@drawable/ic_storefront_24"
+            tools:ignore="MissingConstraints,NotSibling">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_expense_store_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/black"
+                android:hint="Store"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white"
+                android:textCursorDrawable="@null" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
+            app:startIconDrawable="@drawable/ic_product_24"
             tools:ignore="MissingConstraints,NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -122,14 +145,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_category_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
+            app:startIconDrawable="@drawable/ic_category_24"
             tools:ignore="MissingConstraints,NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -145,14 +168,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_dollar_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
+            app:startIconDrawable="@drawable/ic_dollar_24"
             tools:ignore="MissingConstraints,NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -168,14 +191,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_dollar_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
+            app:startIconDrawable="@drawable/ic_dollar_24"
             tools:ignore="MissingConstraints,NotSibling">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -190,28 +213,28 @@
                 android:textCursorDrawable="@null" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_dollar_24"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"
-            tools:ignore="MissingConstraints,NotSibling">
+        <!--        <com.google.android.material.textfield.TextInputLayout-->
+        <!--            android:layout_width="300dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="5dp"-->
+        <!--            app:boxStrokeColor="@color/black"-->
+        <!--            app:hintTextColor="@color/black"-->
+        <!--            app:startIconDrawable="@drawable/ic_dollar_24"-->
+        <!--            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/edit_sign_up_user_id"-->
+        <!--            tools:ignore="MissingConstraints,NotSibling">-->
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_expense_currency_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/black"
-                android:hint="Currency"
-                android:inputType="text"
-                android:textColor="@color/black"
-                android:textColorHint="@color/white"
-                android:textCursorDrawable="@null" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <!--            <com.google.android.material.textfield.TextInputEditText-->
+        <!--                android:id="@+id/edit_expense_currency_id"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:backgroundTint="@color/black"-->
+        <!--                android:hint="Currency"-->
+        <!--                android:inputType="text"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textColorHint="@color/white"-->
+        <!--                android:textCursorDrawable="@null" />-->
+        <!--        </com.google.android.material.textfield.TextInputLayout>-->
 
         <Button
             android:id="@+id/budget_add_btn"
